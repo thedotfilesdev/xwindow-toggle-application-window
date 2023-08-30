@@ -39,7 +39,7 @@ function get_args() {
 get_args "$@"
 
 window_ids=$(wmctrl -l | grep "$window_title" | awk '{print $1}')
-number_of_window_ids=$(echo "$window_ids" | wc -l)
+number_of_window_ids=$(echo "$window_ids" | sed '/^\s*$/d' | wc -l)
 
 log_file="$HOME/Private/dotfiles/bin/toggle.log"
 config_folder="$HOME/.config/toggle-application-windows"
