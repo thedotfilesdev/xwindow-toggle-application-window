@@ -41,11 +41,16 @@ get_args "$@"
 window_ids=$(wmctrl -l | grep "$window_title" | awk '{print $1}')
 number_of_window_ids=$(echo "$window_ids" | sed '/^\s*$/d' | wc -l)
 
-log_file="$HOME/Private/dotfiles/bin/toggle.log"
+log_folder="$HOME/.local/state/toggle-application-windows"
+log_file="$log_folder/toggle-application-windows.log"
 config_folder="$HOME/.config/toggle-application-windows"
 command_file="$config_folder/$command_to_execute.txt"
 
 create_required_directories_and_files() {
+	if [ ! -d "$log_folder" ]; then
+		mkdir -p "$log_folder"
+	fi
+
 	if [ ! -d "$config_folder" ]; then
 		mkdir -p "$config_folder"
 	fi
